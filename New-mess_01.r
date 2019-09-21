@@ -18,7 +18,7 @@ library(lattice)
 library(DAAG)
 library(spdep)
 library(ggmap)
-register_google(key="AIzaSyDyJMiLOkdObGTLycClgh-g5ijErZdjkSg",account_type="standard", write = TRUE) # https://console.cloud.google.com
+register_google(key="xxx",account_type="standard", write = TRUE) # https://console.cloud.google.com
 
 ################################################################################
 #
