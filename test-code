@@ -1,0 +1,55 @@
+setwd("C:/Users/surov/OneDrive/MTU/01. Research/06. Spatial correlation/r")
+################################################################################
+R1DS <- function(file)
+{
+  param1.raw <- read.table(file=file, header=TRUE, sep=",", na.strings=T);
+  param1.dat <- param1.raw[,c(1,2,3)];
+  #names(param1.dat) <-c("Lat","Long",'Param1')
+}
+#####
+R2DS <- function(file)
+{
+  param2.raw <- read.table(file=file, header=TRUE, sep=",", na.strings=T);
+  param2.dat <- param2.raw[,c(1,2,3)];
+  #names(param2.dat) <-c("Lat","Long",'Param2')
+}
+################################################################################
+LIMITS <- function(x)
+{
+  max_lat_p1 <- max(param1.dat[,1]);
+  min_lat_p1 <- min(param1.dat[,1]);
+  max_lat_p2 <- max(param2.dat[,1]);
+  min_lat_p2 <- min(param2.dat[,1]);
+  
+  max_lon_p1 <- max(param1.dat[,2]);
+  min_lon_p1 <- min(param1.dat[,2]);
+  max_lon_p2 <- max(param2.dat[,2]);
+  min_lon_p2 <- min(param2.dat[,2]);
+  
+  mean_lat_p1 <- mean(param1.dat[,1]);
+  mean_lat_p2 <- mean(param2.dat[,1]);
+  mean_lon_p1 <- mean(param1.dat[,2]);
+  mean_lon_p2 <- mean(param2.dat[,2]);
+  
+  if (max_lat_p1 >= max_lat_p2) {
+    lim_lat_max <- max_lat_p1; 
+  } else {lim_lat_max <- max_lat_p2};
+  if (min_lat_p1 <= min_lat_p2) {
+    lim_lat_min <- min_lat_p1; 
+  } else {lim_lat_min <- min_lat_p2};
+  if (max_lon_p1 >= max_lon_p2) {
+    lim_lon_max <- max_lon_p1; 
+  } else {lim_lon_max <- max_lon_p2};
+  if (min_lon_p1 <= min_lon_p2) {
+    lim_lon_min <- min_lon_p1; 
+  } else {lim_lon_min <- min_lon_p2};
+  
+  eax <- lim_lat_max + (x * ((lim_lat_max - lim_lat_min) / 100));
+  ean <- lim_lat_min - (x * ((lim_lat_max - lim_lat_min) / 100));
+  eox <- lim_lon_max + (x * ((lim_lon_max - lim_lon_min) / 100));
+  eon <- lim_lon_min - (x * ((lim_lon_max - lim_lon_min) / 100));
+}
+################################################################################
+param1.dat <- R1DS('Parameter-1.csv')
+param2.dat <- R2DS('Parameter-2.csv')
+LIMITS(3)
